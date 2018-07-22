@@ -4,45 +4,59 @@ import createPersistedState from "vuex-persistedstate"
 
 Vue.use(Vuex)
 
-const defaultMetric = {
-  icon: '❓',
-  name: '',
-  id: null
-}
-
 export default new Vuex.Store({
   state: {
     metrics: [],
     activeTab: 'home',
-    showMetricEditModal: false,
-    editedMetric: defaultMetric,
     records: []
   },
   mutations: {
     setActiveTab(state, key) {
       state.activeTab = key
     },
-    setShowMetricEditModal(state, show) {
-      if (!show) {
-        state.editedMetric = defaultMetric
-      }
-      state.showMetricEditModal = show
-    },
-    setEditedMetric(state, payload) {
-      state.editedMetric = Object.assign({}, state.editedMetric, payload)
-    },
-    saveMetric(state) {
-      if (state.editedMetric.id) {
-        var index = state.metrics.findIndex(item => item.id === state.editedMetric.id)
-        Vue.set(state.metrics, index, state.editedMetric)
+    saveMetric(state, metric) {
+      if (metric.id) {
+        var index = state.metrics.findIndex(item => item.id === metric.id)
+        Vue.set(state.metrics, index, metric)
       }
       else {
-        state.editedMetric.id = Date.now()
-        state.metrics.push(state.editedMetric)
+        metric.id = Date.now()
+        state.metrics.push(metric)
       }
     },
-    iterate(state, record) {
-      state.records.push(record)
+    deleteMetric(state, metricId) {
+      state.records = state.records.filter(item => item.metric !== metricId)
+      state.metrics = state.metrics.filter(item => item.id !== metricId)
+    },
+    resetMetric(state, metricId) {
+      state.records = state.records.filter(item => item.metric !== metricId)
+    },
+    iterate(state, metricId) {
+      var record = {
+        metric: metricId,
+        time: Date.now(),
+        location: null
+      }
+
+      var metric = state.metrics.find(item => item.id === metricId)
+      if (metric.location && 'geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition(
+          location => {
+            record.location = {
+              latitude: location.coords.latitude,
+              longitude: location.coords.longitude,
+            }
+            state.records.push(record)
+          },
+          error => {
+            console.error(error)
+            state.records.push(record)
+          }
+        )
+      }
+      else {
+        state.records.push(record)
+      }
     }
   },
   getters: {
