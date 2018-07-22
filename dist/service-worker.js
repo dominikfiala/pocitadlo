@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.4.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.7017a92f7ddc531c6a7fa642e4a20d26.js"
+  "/pocitadlo/dist/precache-manifest.4e8978edc7f62381defebe7c16795f68.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "pocitadlo"});
