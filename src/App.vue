@@ -48,6 +48,10 @@
   $font-size-base: 0.9rem;
   @import "../node_modules/bootstrap/scss/bootstrap";
 
+  a, a:hover, a:active {
+    text-decoration: none !important;
+  }
+  
   .page {
     display: flex;
     flex-direction: column;
@@ -61,16 +65,12 @@
     font-size: 0.75rem;
     line-height: 1.25;
 
-    a.router-link-active {
-      color: var(--primary);
-    }
-  }
-  a {
-    text-decoration: inherit;
-
-    &.no-color, &.no-color:hover {
+    a, a:hover, a:active {
       color: inherit;
-      text-decoration: none !important;
+
+      &.router-link-active {
+        color: var(--primary);
+      }
     }
   }
 </style>

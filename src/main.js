@@ -1,11 +1,13 @@
 import Vue from 'vue'
 import moment from 'moment'
-
+import viewportUnitsBuggyfill from 'viewport-units-buggyfill'
 import App from './App.vue'
 import router from './router'
 import store from './store'
 import './registerServiceWorker'
 import 'ionicons/dist/css/ionicons.min.css'
+
+viewportUnitsBuggyfill.init()
 
 Vue.config.productionTip = false
 
@@ -25,5 +27,10 @@ Vue.filter('period', function (period) {
 new Vue({
   router,
   store,
-  render: h => h(App)
+  render: h => h(App),
+  mounted() {
+    document.body.addEventListener('touchmove', function(event) {
+      event.preventDefault()
+    }, { passive: false })
+  }
 }).$mount('#app')

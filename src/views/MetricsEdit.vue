@@ -3,7 +3,7 @@
     <app-titlebar>
       <span v-if="id" slot="middle">Upravit jednotku</span>
       <span v-if="!id" slot="middle">Nová jednotka</span>
-      <a slot="right" href="#" v-on:click="$router.go(-1)">Zrušit</a>
+      <router-link slot="right" to="/metrics">Zrušit</router-link>
     </app-titlebar>
 
     <div class="page-content bg-white p-2">
