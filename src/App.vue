@@ -45,13 +45,17 @@
 </script>
 
 <style lang="scss">
-  $font-size-base: 0.9rem;
+  // $font-size-base: 0.9rem;
   @import "../node_modules/bootstrap/scss/bootstrap";
+
+  body {
+    font-family: 'Barlow Semi Condensed', sans-serif;
+  }
 
   a, a:hover, a:active {
     text-decoration: none !important;
   }
-  
+
   .page {
     display: flex;
     flex-direction: column;

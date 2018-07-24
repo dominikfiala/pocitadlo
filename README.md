@@ -19,3 +19,6 @@ npm run build
 ```
 npm run lint
 ```
+
+## Font
+https://fonts.google.com/specimen/Barlow+Semi+Condensed
